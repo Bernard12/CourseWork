@@ -17,7 +17,7 @@ while(i)
     printf("Choose option (number [1..8]): \n");
     scanf("%s",c);
 
-    if(c[0]=='1')
+    if(c[0]=='1' && c[1]!='0')
     {
         int k;
         printf("How much elements you want to add?\n");
@@ -82,11 +82,25 @@ while(i)
 
     if(c[0]=='7')
     {
+        printf("List contains %d elements\n\n",count(l));
+    }
+
+    if(c[0]=='8')
+    {
+        l=reverse(l);
+        printf("\nProcess successfuly ended\n");
+        print(l);
+    }
+
+    if(c[0]=='9')
+    {
         delete_list(l);
         printf("List successful deleted\n");
     }
-    if(c[0]=='8')
+
+    if(c[0]=='1' && c[1]=='0')
     {
+        printf("\nBye!");
         return 0;
     }
 

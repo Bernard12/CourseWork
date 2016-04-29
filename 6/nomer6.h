@@ -135,6 +135,13 @@ void manual_add(char* file) //ручное добавление в базу
         printf("Enter gender(F or M):\n");
         scanf("%c",&h.gender);
         scanf("%c",&x);
+        if(h.gender=='m') h.gender='M';
+        if(h.gender=='f') h.gender='F';
+        if(h.gender!='M' && h.gender!='F')
+        {
+            if(h.gender<'F') h.gender='F';
+            if(h.gender>'F') h.gender='M';
+        }
         printf("Enter group(101-108):\n");
         scanf("%d",&h.group);
         scanf("%c",&x);
@@ -205,7 +212,7 @@ void deletion_by_surname(char* path, char* surname)
         while(fread(&h,sizeof(Human),1,f)>0)
         {
             if(comparator(h.surname,surname))
-            {printf("1");
+            {
                 char c,n;
                 printf("\n");
                 printf("%s %c%c%c Gender: %c Group № %d Marks: %d %d %d %d\n",h.surname,h.init[0],h.init[1],h.init[2],h.gender,h.group,h.marks[0],h.marks[1],h.marks[2],h.marks[3]);
@@ -273,7 +280,9 @@ printf("4._______________Deletion by number_________________\n");
 printf("5.______________Deletion  by surname________________\n");
 printf("6._________________Base  deletion___________________\n");
 printf("7.____________________Task  12______________________\n");
-printf("8.______________________Quit________________________\n");
+printf("8._____________________Search_______________________\n");
+printf("9._________________Change   file____________________\n");
+printf("10._____________________Quit________________________\n");
 }
 
 
@@ -289,4 +298,50 @@ void delete_base(char* path)
     }
 	else printf("I can not find or open the file.\n");
 
+}
+
+void surname_search(char* path)
+{
+    FILE* f;
+    f=fopen(path, "rb");
+    if(f)
+    {
+        char surname[16];
+        printf("Enter surname(up to 15 symbols):\n");
+        scanf("%s",surname);
+        int i=1;
+        Human h;
+        while( ( fread(&h,sizeof(Human),1,f) )>0 )
+        {
+            if(comparator(h.surname,surname))
+            {
+                printf("%d) %s %c%c%c Gender: %c Group № %d Marks: %d %d %d %d\n",i,h.surname,h.init[0],h.init[1],h.init[2],h.gender,h.group,h.marks[0],h.marks[1],h.marks[2],h.marks[3]);
+            }
+            i++;
+        }
+        printf("\n\n\n");
+    }
+    else {printf("Error while opening the file.\n");}
+}
+
+void group_search(char* path)
+{int i=1;
+    FILE* f;
+    Human h;
+    f=fopen(path,"rb");
+    if(f)
+    {int g;
+        printf("Enter number of group:\n");
+        scanf("%d",&g);
+        while( ( fread(&h,sizeof(Human),1,f) )>0 )
+        {
+            if(g==h.group)
+            {
+                printf("%d) %s %c%c%c Gender: %c Group № %d Marks: %d %d %d %d\n",i,h.surname,h.init[0],h.init[1],h.init[2],h.gender,h.group,h.marks[0],h.marks[1],h.marks[2],h.marks[3]);
+            }
+            i++;
+        }
+        printf("\n\n\n");
+    }
+    else {printf("Error while opening the file.\n");}
 }

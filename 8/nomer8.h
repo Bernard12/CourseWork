@@ -107,7 +107,7 @@ list insert(list l,int a, int n)
 list cut_by_value(list l, int a)
 {
     list l1=to_barrier(l);
-    if(empty(l1)) return l1;
+    if(empty(l1)) {printf("List is empty");return l1;}
     l1=l1->next;
     if(l1->value==a)
     {
@@ -240,14 +240,17 @@ void delete_list(list l)
 void menu()
 {
     printf("____________________Menu____________________\n");
-    printf("1.____________Add new elements______________\n");
+    printf("1._____________Add new elements_____________\n");
     printf("2._________Add new random elements__________\n");
     printf("3.________Remove element  by number_________\n");
     printf("4.___Remove first element with same value___\n");
     printf("5.___________Print list in a row____________\n");
     printf("6.__________Print list in a column__________\n");
-    printf("7.______________Delete the list_____________\n");
-    printf("8.___________________Quit___________________\n");
+
+    printf("7._____Quantity of elements in the list_____\n");
+    printf("8._________________Reverse__________________\n");
+    printf("9.______________Delete the list_____________\n");
+    printf("10.__________________Quit___________________\n");
 
 }
 
@@ -261,4 +264,21 @@ void print(list l)
     {
         row_print(l);
     }
+}
+
+list reverse(list l)
+{
+    if(empty(l)) {printf("\nList is empty\n");return(l);}
+    l=to_barrier(l)->next;
+    list help=(list)malloc(1*sizeof(node));
+    help->value=INT_MIN;
+    help->prev=NULL;
+    while(l->next!=NULL)
+    {
+        insert(help,l->value,1);
+        l=l->next;
+    }
+    insert(help,l->value,1);
+
+    return help;
 }
