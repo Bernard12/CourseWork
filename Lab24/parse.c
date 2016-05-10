@@ -38,7 +38,7 @@ int main()
     scanf("%s",input);
     int cnt=0;
     for (int i=0;input[i]!='\0';i++)
-    {printf("\n%d\n",i );
+    {
         if(i==0)
         {
                 if( isnum(input[i]) )
@@ -74,23 +74,6 @@ int main()
 
                 }
         }
-
-        if( isoper(input[i-1]) && input[i]=='-' && isnum(input[i+1]) )
-        {
-            int res=0;
-            i++;
-            while(isnum(input[i]))
-            {
-                res*=10;
-                res+=(input[i]-'0');
-                i++;
-            }
-            output[cnt].op='?';
-            output[cnt].val=(-1)*res; cnt++;
-            i--; continue;
-
-        }
-
 
 
 
@@ -135,6 +118,21 @@ int main()
         if(  isnum(input[i-1]) && input[i]=='^' && input[i+1]=='-' )   {output[cnt].op='^'; cnt++; continue;}
         if(isclose(input[i-1]) && input[i]=='^' && input[i+1]=='-' )   {output[cnt].op='^'; cnt++; continue;}
 
+        if( isoper(input[i-1]) && input[i]=='-' && isnum(input[i+1]) )
+        {
+            int res=0;
+            i++;
+            while(isnum(input[i]))
+            {
+                res*=10;
+                res+=(input[i]-'0');
+                i++;
+            }
+            output[cnt].op='?';
+            output[cnt].val=(-1)*res; cnt++;
+            i--; continue;
+
+        }
 
         if( (isopen(input[i-1]) || isoper(input[i-1])) && isnum(input[i]) )
         {
