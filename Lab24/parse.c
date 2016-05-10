@@ -38,7 +38,7 @@ int main()
     scanf("%s",input);
     int cnt=0;
     for (int i=0;input[i]!='\0';i++)
-    {
+    {printf("\n%d\n",i);
         if(i==0)
         {
                 if( isnum(input[i]) )
@@ -54,7 +54,6 @@ int main()
                     output[cnt].val=res; cnt++;
                     i--; continue;
                 }
-                if( isoper(input[i]) && input[i]!='-' ) {printf("Wrong input\n"); return 0;}
                 if( input[i]=='-' )
                 {
                     i++;
@@ -73,6 +72,8 @@ int main()
                     }
 
                 }
+
+                if( input[i]!='-' && !isopen(input[i]) ) {printf("kek Wrong input\n"); return 0;}
         }
 
 
@@ -83,14 +84,14 @@ int main()
         if(  isnum(input[i-1]) && input[i]=='/' && isnum(input[i+1]) ) {output[cnt].op='/'; cnt++; continue;}
         if(  isnum(input[i-1]) && input[i]=='/' && isopen(input[i+1]) ){output[cnt].op='/'; cnt++; continue;}
         if( isclose(input[i-1])&& input[i]=='/' && isnum(input[i+1]) ) {output[cnt].op='/'; cnt++; continue;}
-        if( isopen(input[i-1]) && input[i]=='/' && isclose(input[i+1])){output[cnt].op='/'; cnt++; continue;}
+        if( isopen(input[i+1]) && input[i]=='/' && isclose(input[i-1])){output[cnt].op='/'; cnt++; continue;}
         if(  isnum(input[i-1]) && input[i]=='/' && input[i+1]=='-' )   {output[cnt].op='/'; cnt++; continue;}
         if(isclose(input[i-1]) && input[i]=='/' && input[i+1]=='-' )   {output[cnt].op='/'; cnt++; continue;}
 
         if(  isnum(input[i-1]) && input[i]=='*' && isnum(input[i+1]) ) {output[cnt].op='*'; cnt++; continue;}
         if(  isnum(input[i-1]) && input[i]=='*' && isopen(input[i+1]) ){output[cnt].op='*'; cnt++; continue;}
         if( isclose(input[i-1])&& input[i]=='*' && isnum(input[i+1]) ) {output[cnt].op='*'; cnt++; continue;}
-        if( isopen(input[i-1]) && input[i]=='*' && isclose(input[i+1])){output[cnt].op='*'; cnt++; continue;}
+        if( isopen(input[i+1]) && input[i]=='*' && isclose(input[i-1])){output[cnt].op='*'; cnt++; continue;}
         if(  isnum(input[i-1]) && input[i]=='*' && input[i+1]=='-' )   {output[cnt].op='*'; cnt++; continue;}
         if(isclose(input[i-1]) && input[i]=='*' && input[i+1]=='-' )   {output[cnt].op='*'; cnt++; continue;}
 
@@ -98,7 +99,7 @@ int main()
         if(  isnum(input[i-1]) && input[i]=='+' && isnum(input[i+1]) ) {output[cnt].op='+'; cnt++; continue;}
         if(  isnum(input[i-1]) && input[i]=='+' && isopen(input[i+1]) ){output[cnt].op='+'; cnt++; continue;}
         if( isclose(input[i-1])&& input[i]=='+' && isnum(input[i+1]) ) {output[cnt].op='+'; cnt++; continue;}
-        if( isopen(input[i-1]) && input[i]=='+' && isclose(input[i+1])){output[cnt].op='+'; cnt++; continue;}
+        if( isopen(input[i+1]) && input[i]=='+' && isclose(input[i-1])){output[cnt].op='+'; cnt++; continue;}
         if(  isnum(input[i-1]) && input[i]=='+' && input[i+1]=='-' )   {output[cnt].op='+'; cnt++; continue;}
         if(isclose(input[i-1]) && input[i]=='+' && input[i+1]=='-' )   {output[cnt].op='+'; cnt++; continue;}
 
@@ -106,7 +107,7 @@ int main()
         if(  isnum(input[i-1]) && input[i]=='-' && isnum(input[i+1]) ) {output[cnt].op='-'; cnt++; continue;}
         if(  isnum(input[i-1]) && input[i]=='-' && isopen(input[i+1]) ){output[cnt].op='-'; cnt++; continue;}
         if( isclose(input[i-1])&& input[i]=='-' && isnum(input[i+1]) ) {output[cnt].op='-'; cnt++; continue;}
-        if( isopen(input[i-1]) && input[i]=='-' && isclose(input[i+1])){output[cnt].op='-'; cnt++; continue;}
+        if( isopen(input[i+1]) && input[i]=='-' && isclose(input[i-1])){output[cnt].op='-'; cnt++; continue;}
         if(  isnum(input[i-1]) && input[i]=='-' && input[i+1]=='-' )   {output[cnt].op='-'; cnt++; continue;}
         if(isclose(input[i-1]) && input[i]=='-' && input[i+1]=='-' )   {output[cnt].op='-'; cnt++; continue;}
 
