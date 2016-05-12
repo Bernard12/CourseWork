@@ -67,6 +67,7 @@ int length(char* a)
 
 tree creation(int lvls)
 {lvls--;
+    //if(!(empty()))
     //srand(time(NULL));
     tree t=(node*)malloc(sizeof(node));
     t->data=((float)(rand()%201))/(rand()%10+11.0);

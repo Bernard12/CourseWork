@@ -23,6 +23,7 @@ int main()
             int l;
             printf("How much levels in tree do you want?[1..15]\n");
             scanf("%d",&l);
+            if(!(tree_empty(t))) del_tree(t);
             t=creation(l);
             printf("Process sucsessfully endend\n");
         }

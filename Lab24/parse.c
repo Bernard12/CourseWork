@@ -6,6 +6,60 @@ typedef struct elem
     int val;
 }elem;
 
+/*______________________Для стэка______________________*/
+/******************************************************/
+
+typedef struct stack
+{
+    elem l;
+    stack* next;
+}stack;
+
+stack push(stack* s, char x, int v)
+{
+    stack* new=(stack*)malloc(sizeof(stack))
+    new->l->oper=x;
+    new->l->val=v;
+    new->next=s;
+    return new;
+}
+
+elem top(stack* s)
+{
+    return(s->l);
+}
+
+elem pop(stack* s)
+{
+    elem e;
+    e.oper=s->l->oper;
+    e.value=s->l->value;
+
+    if(s->next!=NULL)
+    {
+        stack* del=s;
+        s=s->next;
+        free(del);
+    }
+    else
+    {
+        s->l=NULL;
+    }
+    return e;
+}
+
+int empty(stack* s)
+{
+    if(s->l==NULL && s->next==NULL) return 1;
+    return 0;
+}
+
+
+ /*****************************************************/
+/*___________________________________________________*/
+
+  /*____________________Для парсинга____________________*/
+ /******************************************************/
 int isoper(char a)
 {
     if(a=='*' || a=='-' || a=='/' || a=='*' || a=='^' ) return 1;
@@ -36,7 +90,8 @@ int istemp(char a)
     if(a>=97 && a<=122) return 1;
     return 0;
 }
-
+ /******************************************************/
+/*____________________________________________________*/
 int main()
 {
     char input[100];
@@ -280,12 +335,21 @@ if(open!=close) {printf("Wrong input\n"); return 0;}
 
         printf("Error, wrong input\n"); return 0;
     }
-    printf("\n");
-    for(int i=0;i<cnt;i++)
+    printf("\nExpression was parsed. Print parsed version?[Y/n]");
+    char c[3];
+    scanf("%s",c)
+    if(c[0]=='Y' || c[0]=='y')
     {
-        if(output[i].op=='?') printf("%d   ",output[i].val);
-        else printf("%c   ",output[i].op);
+        for(int i=0;i<cnt;i++)
+        {
+            if(output[i].op=='?') printf("%d ",output[i].val);
+            else printf("%c   ",output[i].op);
 
+        }
     }
-printf("\n");
+    elem new[100];
+    stack* s=(stack*)malloc(sizeof(stack));
+    s->l=NULL;
+    s->next=NULL;
+
 }
