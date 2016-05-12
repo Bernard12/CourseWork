@@ -43,37 +43,39 @@ int main()
     elem output[100];
     scanf("%s",input);
     int cnt=0;
-int open=0, close=0;
+int open=0, close=0; int count=0;
     for(int i=0;input[i+1]!='\0';i++)
-    {
+    {count=i;
         if(isopen(input[i]))
-        {open++;
+        {open++; printf("1");
             if( !(input[i+1]=='-' || isnum(input[i+1]) || istemp(input[i+1]) || isopen(input[i+1]))  ) {printf("Wrong input\n"); return 0;}
             continue;
         }
         if(isclose(input[i]))
-        {close++;
+        {close++; printf("2");
             if( !(isoper(input[i+1]) || isclose(input[i+1]) || isnum(input[i+1]) || istemp(input[i+1])) ) {printf("Wrong input\n"); return 0;}
             continue;
         }
         if(isoper(input[i]))
-        {
+        {printf("3");
             if( isclose(input[i+1]) ) {printf("Wrong input\n"); return 0;}
             continue;
         }
         if(isnum(input[i]))
-        {
+        {printf("4");
             if( istemp(input[i+1]) || isopen(input[i+1]) ) {printf("Wrong input\n"); return 0;}
             continue;
         }
         if(istemp(input[i]))
-        {
+        {printf("5");
             if( istemp(input[i+1]) ) {printf("Wrong input, name of variables must consist of 1 char"); return 0;}
             if( isnum(input[i+1]) || isopen(input[i+1]) ) {printf("Wrong input\n"); return 0;}
             continue;
         }
 
     }
+    if(isclose(input[count])) close++;
+    if(isopen(input[count])) {printf("Wrong input, name of variables must consist of 1 char"); return 0;}
     //printf("%d  %d",open, close);
 if(open!=close) {printf("Wrong input\n"); return 0;}
     for (int i=0;input[i]!='\0';i++)
@@ -133,42 +135,42 @@ if(open!=close) {printf("Wrong input\n"); return 0;}
         if(input[i]==')') {output[cnt].op=')'; cnt++; continue;}
 
         if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='/' && (isnum(input[i+1]) || istemp(input[i-1]) ) ) {output[cnt].op='/'; cnt++; continue;}
-        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='/' && isopen(input[i+1]) ){output[cnt].op='/'; cnt++; continue;}
-        if( isclose(input[i-1]) && input[i]=='/' && (isnum(input[i+1]) || istemp(input[i-1])) ) {output[cnt].op='/'; cnt++; continue;}
-        if( isopen(input[i+1])  && input[i]=='/' && isclose(input[i-1])){output[cnt].op='/'; cnt++; continue;}
-        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='/' && input[i+1]=='-' )   {output[cnt].op='/'; cnt++; continue;}
-        if(isclose(input[i-1])  && input[i]=='/' && input[i+1]=='-' )   {output[cnt].op='/'; cnt++; continue;}
+        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='/' && isopen(input[i+1]) )                         {output[cnt].op='/'; cnt++; continue;}
+        if(                        isclose(input[i-1]) && input[i]=='/' && (isnum(input[i+1]) || istemp(input[i-1])) )  {output[cnt].op='/'; cnt++; continue;}
+        if(                        isopen(input[i+1])  && input[i]=='/' && isclose(input[i-1]))                         {output[cnt].op='/'; cnt++; continue;}
+        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='/' && input[i+1]=='-' )                            {output[cnt].op='/'; cnt++; continue;}
+        if(                       isclose(input[i-1])  && input[i]=='/' && input[i+1]=='-' )                            {output[cnt].op='/'; cnt++; continue;}
 
-        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='*' && (isnum(input[i+1]) || istemp(input[i-1])) ) {output[cnt].op='*'; cnt++; continue;}
-        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='*' && isopen(input[i+1]) ){output[cnt].op='*'; cnt++; continue;}
-        if( isclose(input[i-1]) && input[i]=='*' && (isnum(input[i-1]) || istemp(input[i-1])) ) {output[cnt].op='*'; cnt++; continue;}
-        if( isopen(input[i+1])  && input[i]=='*' && isclose(input[i-1])){output[cnt].op='*'; cnt++; continue;}
-        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='*' && input[i+1]=='-' )   {output[cnt].op='*'; cnt++; continue;}
-        if(isclose(input[i-1])  && input[i]=='*' && input[i+1]=='-' )   {output[cnt].op='*'; cnt++; continue;}
-
-
-        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='+' && (isnum(input[i-1]) || istemp(input[i-1])) ) {output[cnt].op='+'; cnt++; continue;}
-        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='+' && isopen(input[i+1]) ){output[cnt].op='+'; cnt++; continue;}
-        if( isclose(input[i-1]) && input[i]=='+' && (isnum(input[i-1]) || istemp(input[i-1])) ) {output[cnt].op='+'; cnt++; continue;}
-        if( isopen(input[i+1])  && input[i]=='+' && isclose(input[i-1])){output[cnt].op='+'; cnt++; continue;}
-        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='+' && input[i+1]=='-' )   {output[cnt].op='+'; cnt++; continue;}
-        if(isclose(input[i-1])  && input[i]=='+' && input[i+1]=='-' )   {output[cnt].op='+'; cnt++; continue;}
+        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='*' && (isnum(input[i+1]) || istemp(input[i-1])) )  {output[cnt].op='*'; cnt++; continue;}
+        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='*' && isopen(input[i+1]) )                         {output[cnt].op='*'; cnt++; continue;}
+        if(                        isclose(input[i-1]) && input[i]=='*' && (isnum(input[i-1]) || istemp(input[i-1])) )  {output[cnt].op='*'; cnt++; continue;}
+        if(                        isopen(input[i+1])  && input[i]=='*' && isclose(input[i-1]))                         {output[cnt].op='*'; cnt++; continue;}
+        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='*' && input[i+1]=='-' )                            {output[cnt].op='*'; cnt++; continue;}
+        if(                       isclose(input[i-1])  && input[i]=='*' && input[i+1]=='-' )                            {output[cnt].op='*'; cnt++; continue;}
 
 
-        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='-' && (isnum(input[i-1]) || istemp(input[i-1])) ) {output[cnt].op='-'; cnt++; continue;}
-        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='-' && isopen(input[i+1]) ){output[cnt].op='-'; cnt++; continue;}
-        if( isclose(input[i-1]) && input[i]=='-' && (isnum(input[i-1]) || istemp(input[i-1])) ) {output[cnt].op='-'; cnt++; continue;}
-        if( isopen(input[i+1])  && input[i]=='-' && isclose(input[i-1])){output[cnt].op='-'; cnt++; continue;}
-        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='-' && input[i+1]=='-' )   {output[cnt].op='-'; cnt++; continue;}
-        if(isclose(input[i-1])  && input[i]=='-' && input[i+1]=='-' )   {output[cnt].op='-'; cnt++; continue;}
+        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='+' && (isnum(input[i-1]) || istemp(input[i-1])) )  {output[cnt].op='+'; cnt++; continue;}
+        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='+' && isopen(input[i+1]) )                         {output[cnt].op='+'; cnt++; continue;}
+        if(                        isclose(input[i-1]) && input[i]=='+' && (isnum(input[i-1]) || istemp(input[i-1])) )  {output[cnt].op='+'; cnt++; continue;}
+        if(                        isopen(input[i+1])  && input[i]=='+' && isclose(input[i-1]))                         {output[cnt].op='+'; cnt++; continue;}
+        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='+' && input[i+1]=='-' )                            {output[cnt].op='+'; cnt++; continue;}
+        if(                       isclose(input[i-1])  && input[i]=='+' && input[i+1]=='-' )                            {output[cnt].op='+'; cnt++; continue;}
 
 
-        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='^' && (isnum(input[i-1]) || istemp(input[i-1])) ) {output[cnt].op='^'; cnt++; continue;}
-        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='^' && isopen(input[i+1]) ){output[cnt].op='^'; cnt++; continue;}
-        if( isclose(input[i-1]) && input[i]=='^' && (isnum(input[i-1]) || istemp(input[i-1])) ) {output[cnt].op='^'; cnt++; continue;}
-        if( isopen(input[i-1]) && input[i]=='^' && isclose(input[i+1])){output[cnt].op='^'; cnt++; continue;}
-        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='^' && input[i+1]=='-' )   {output[cnt].op='^'; cnt++; continue;}
-        if(isclose(input[i-1]) && input[i]=='^' && input[i+1]=='-' )   {output[cnt].op='^'; cnt++; continue;}
+        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='-' && (isnum(input[i-1]) || istemp(input[i-1])) )  {output[cnt].op='-'; cnt++; continue;}
+        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='-' && isopen(input[i+1]) )                         {output[cnt].op='-'; cnt++; continue;}
+        if(                        isclose(input[i-1]) && input[i]=='-' && (isnum(input[i-1]) || istemp(input[i-1])) )  {output[cnt].op='-'; cnt++; continue;}
+        if(                        isopen(input[i+1])  && input[i]=='-' && isclose(input[i-1]))                         {output[cnt].op='-'; cnt++; continue;}
+        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='-' && input[i+1]=='-' )                            {output[cnt].op='-'; cnt++; continue;}
+        if(                       isclose(input[i-1])  && input[i]=='-' && input[i+1]=='-' )                            {output[cnt].op='-'; cnt++; continue;}
+
+
+        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='^' && (isnum(input[i-1]) || istemp(input[i-1])) )  {output[cnt].op='^'; cnt++; continue;}
+        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='^' && isopen(input[i+1]) )                         {output[cnt].op='^'; cnt++; continue;}
+        if(                        isclose(input[i-1]) && input[i]=='^' && (isnum(input[i-1]) || istemp(input[i-1])) )  {output[cnt].op='^'; cnt++; continue;}
+        if(                         isopen(input[i-1]) && input[i]=='^' && isclose(input[i+1]))                         {output[cnt].op='^'; cnt++; continue;}
+        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='^' && input[i+1]=='-' )                            {output[cnt].op='^'; cnt++; continue;}
+        if(                        isclose(input[i-1]) && input[i]=='^' && input[i+1]=='-' )                            {output[cnt].op='^'; cnt++; continue;}
 
         if( (isoper(input[i-1]) || isopen(input[i-1])) && input[i]=='-' && isnum(input[i+1]) )
         {
