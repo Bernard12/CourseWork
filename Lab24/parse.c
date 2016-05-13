@@ -8,7 +8,7 @@ typedef struct elem
 
 /*______________________Для стэка______________________*/
 /******************************************************/
-
+/*
 typedef struct stack
 {
     elem l;
@@ -53,7 +53,7 @@ int empty(stack* s)
     if(s->l==NULL && s->next==NULL) return 1;
     return 0;
 }
-
+*/
 
  /*****************************************************/
 /*___________________________________________________*/
@@ -347,9 +347,38 @@ if(open!=close) {printf("Wrong input\n"); return 0;}
 
         }
     }
-    elem new[100];
-    stack* s=(stack*)malloc(sizeof(stack));
-    s->l=NULL;
-    s->next=NULL;
+    elem new[100],stack[100];
+    //stack* s=(stack*)malloc(sizeof(stack));
+    //s->l=NULL;
+    //s->next=NULL;
 
+    // +
+    // -
+    // *
+    // /
+    // ^
+    int stack_cnt=0;
+    int new_cnt=0;
+    for(int i=0;i<cnt;i++)
+    {
+        if(output[i].op=='?' || istemp(output[i].op))
+        {
+            new[new_cnt].op=output[i].op;
+            if(output[i].op=='?') new[new_cnt].val=output[i].val;
+            new_cnt++;
+            continue;
+        }
+        if(output[i].op='(')
+        {
+            stack[stack_cnt].op='('
+            stack_cnt++;
+            continue;
+        }
+
+        if(isoper(output[i].op))
+        {
+            
+            if(output[i].op=='')
+        }
+    }
 }
