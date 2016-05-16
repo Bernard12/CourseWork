@@ -8,6 +8,17 @@ typedef struct elem
 
 /*______________________Для стэка______________________*/
 /******************************************************/
+int priority(char a)
+{
+    if(a=='(') return 1;
+    if(a=='+') return 2;
+    if(a=='-') return 2;
+    if(a=='*') return 3;
+    if(a=='/') return 3;
+    if(a=='^') return 4;
+    return 0;
+}
+
 /*
 typedef struct stack
 {
@@ -62,7 +73,7 @@ int empty(stack* s)
  /******************************************************/
 int isoper(char a)
 {
-    if(a=='*' || a=='-' || a=='/' || a=='*' || a=='^' ) return 1;
+    if(a=='+' || a=='-' || a=='/' || a=='*' || a=='^' ) return 1;
     return 0;
 }
 
@@ -129,12 +140,12 @@ int open=0, close=0; int count=0;
         }
 
     }
-    if(isclose(input[count])) close++;
+    if(isclose(input[count+1])) close++;
     if(isopen(input[count])) {printf("Wrong input, name of variables must consist of 1 char"); return 0;}
-    //printf("%d  %d",open, close);
+    printf("%d  %d",open, close);
 if(open!=close) {printf("Wrong input\n"); return 0;}
     for (int i=0;input[i]!='\0';i++)
-    {//printf("\n%d\n",i);
+    {printf("\n%d\n",i);
         if(i==0)
         {
             if(istemp(input[i]))
@@ -189,40 +200,40 @@ if(open!=close) {printf("Wrong input\n"); return 0;}
         if(input[i]=='(') {output[cnt].op='('; cnt++; continue;}
         if(input[i]==')') {output[cnt].op=')'; cnt++; continue;}
 
-        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='/' && (isnum(input[i+1]) || istemp(input[i-1]) ) ) {output[cnt].op='/'; cnt++; continue;}
+        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='/' && (isnum(input[i+1]) || istemp(input[i+1]) ) ) {output[cnt].op='/'; cnt++; continue;}
         if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='/' && isopen(input[i+1]) )                         {output[cnt].op='/'; cnt++; continue;}
-        if(                        isclose(input[i-1]) && input[i]=='/' && (isnum(input[i+1]) || istemp(input[i-1])) )  {output[cnt].op='/'; cnt++; continue;}
+        if(                        isclose(input[i-1]) && input[i]=='/' && (isnum(input[i+1]) || istemp(input[i+1])) )  {output[cnt].op='/'; cnt++; continue;}
         if(                        isopen(input[i+1])  && input[i]=='/' && isclose(input[i-1]))                         {output[cnt].op='/'; cnt++; continue;}
         if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='/' && input[i+1]=='-' )                            {output[cnt].op='/'; cnt++; continue;}
         if(                       isclose(input[i-1])  && input[i]=='/' && input[i+1]=='-' )                            {output[cnt].op='/'; cnt++; continue;}
 
-        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='*' && (isnum(input[i+1]) || istemp(input[i-1])) )  {output[cnt].op='*'; cnt++; continue;}
+        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='*' && (isnum(input[i+1]) || istemp(input[i+1])) )  {output[cnt].op='*'; cnt++; continue;}
         if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='*' && isopen(input[i+1]) )                         {output[cnt].op='*'; cnt++; continue;}
-        if(                        isclose(input[i-1]) && input[i]=='*' && (isnum(input[i-1]) || istemp(input[i-1])) )  {output[cnt].op='*'; cnt++; continue;}
+        if(                        isclose(input[i-1]) && input[i]=='*' && (isnum(input[i+1]) || istemp(input[i+1])) )  {output[cnt].op='*'; cnt++; continue;}
         if(                        isopen(input[i+1])  && input[i]=='*' && isclose(input[i-1]))                         {output[cnt].op='*'; cnt++; continue;}
         if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='*' && input[i+1]=='-' )                            {output[cnt].op='*'; cnt++; continue;}
         if(                       isclose(input[i-1])  && input[i]=='*' && input[i+1]=='-' )                            {output[cnt].op='*'; cnt++; continue;}
 
 
-        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='+' && (isnum(input[i-1]) || istemp(input[i-1])) )  {output[cnt].op='+'; cnt++; continue;}
+        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='+' && (isnum(input[i+1]) || istemp(input[i+1])) )  {output[cnt].op='+'; cnt++; continue;}
         if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='+' && isopen(input[i+1]) )                         {output[cnt].op='+'; cnt++; continue;}
-        if(                        isclose(input[i-1]) && input[i]=='+' && (isnum(input[i-1]) || istemp(input[i-1])) )  {output[cnt].op='+'; cnt++; continue;}
+        if(                        isclose(input[i-1]) && input[i]=='+' && (isnum(input[i+1]) || istemp(input[i+1])) )  {output[cnt].op='+'; cnt++; continue;}
         if(                        isopen(input[i+1])  && input[i]=='+' && isclose(input[i-1]))                         {output[cnt].op='+'; cnt++; continue;}
         if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='+' && input[i+1]=='-' )                            {output[cnt].op='+'; cnt++; continue;}
         if(                       isclose(input[i-1])  && input[i]=='+' && input[i+1]=='-' )                            {output[cnt].op='+'; cnt++; continue;}
 
 
-        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='-' && (isnum(input[i-1]) || istemp(input[i-1])) )  {output[cnt].op='-'; cnt++; continue;}
+        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='-' && (isnum(input[i+1]) || istemp(input[i+1])) )  {output[cnt].op='-'; cnt++; continue;}
         if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='-' && isopen(input[i+1]) )                         {output[cnt].op='-'; cnt++; continue;}
-        if(                        isclose(input[i-1]) && input[i]=='-' && (isnum(input[i-1]) || istemp(input[i-1])) )  {output[cnt].op='-'; cnt++; continue;}
+        if(                        isclose(input[i-1]) && input[i]=='-' && (isnum(input[i+1]) || istemp(input[i+1])) )  {output[cnt].op='-'; cnt++; continue;}
         if(                        isopen(input[i+1])  && input[i]=='-' && isclose(input[i-1]))                         {output[cnt].op='-'; cnt++; continue;}
         if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='-' && input[i+1]=='-' )                            {output[cnt].op='-'; cnt++; continue;}
         if(                       isclose(input[i-1])  && input[i]=='-' && input[i+1]=='-' )                            {output[cnt].op='-'; cnt++; continue;}
 
 
-        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='^' && (isnum(input[i-1]) || istemp(input[i-1])) )  {output[cnt].op='^'; cnt++; continue;}
+        if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='^' && (isnum(input[i+1]) || istemp(input[i+1])) )  {output[cnt].op='^'; cnt++; continue;}
         if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='^' && isopen(input[i+1]) )                         {output[cnt].op='^'; cnt++; continue;}
-        if(                        isclose(input[i-1]) && input[i]=='^' && (isnum(input[i-1]) || istemp(input[i-1])) )  {output[cnt].op='^'; cnt++; continue;}
+        if(                        isclose(input[i-1]) && input[i]=='^' && (isnum(input[i+1]) || istemp(input[i+1])) )  {output[cnt].op='^'; cnt++; continue;}
         if(                         isopen(input[i-1]) && input[i]=='^' && isclose(input[i+1]))                         {output[cnt].op='^'; cnt++; continue;}
         if(  (isnum(input[i-1]) || istemp(input[i-1])) && input[i]=='^' && input[i+1]=='-' )                            {output[cnt].op='^'; cnt++; continue;}
         if(                        isclose(input[i-1]) && input[i]=='^' && input[i+1]=='-' )                            {output[cnt].op='^'; cnt++; continue;}
@@ -335,28 +346,20 @@ if(open!=close) {printf("Wrong input\n"); return 0;}
 
         printf("Error, wrong input\n"); return 0;
     }
-    printf("\nExpression was parsed. Print parsed version?[Y/n]");
+    printf("\nExpression was parsed. Print parsed version?[Y/n]\n");
     char c[3];
-    scanf("%s",c)
+    scanf("%s",c);
     if(c[0]=='Y' || c[0]=='y')
     {
         for(int i=0;i<cnt;i++)
         {
             if(output[i].op=='?') printf("%d ",output[i].val);
-            else printf("%c   ",output[i].op);
+            else printf("%c ",output[i].op);
 
         }
     }
-    elem new[100],stack[100];
-    //stack* s=(stack*)malloc(sizeof(stack));
-    //s->l=NULL;
-    //s->next=NULL;
-
-    // +
-    // -
-    // *
-    // /
-    // ^
+    elem new[100];
+    char stack[100];
     int stack_cnt=0;
     int new_cnt=0;
     for(int i=0;i<cnt;i++)
@@ -368,17 +371,64 @@ if(open!=close) {printf("Wrong input\n"); return 0;}
             new_cnt++;
             continue;
         }
-        if(output[i].op='(')
+        if(output[i].op=='(')
         {
-            stack[stack_cnt].op='('
+            stack[stack_cnt]='(';
             stack_cnt++;
             continue;
         }
 
         if(isoper(output[i].op))
         {
-            
-            if(output[i].op=='')
+            if( (priority(output[i].op)<=priority(stack[stack_cnt-1])) && stack_cnt!=0)
+            {
+                new[new_cnt].op=stack[stack_cnt-1];
+                new_cnt++;
+                stack[stack_cnt-1]=output[i].op;
+                continue;
+            }
+            if(priority(stack[stack_cnt])<priority(output[i].op))
+            {
+                stack[stack_cnt]=output[i].op;
+                stack_cnt++;
+                continue;
+            }
+            if(!stack_cnt)
+            {
+                stack[stack_cnt]=output[i].op;
+                stack_cnt++;
+            }
+        }
+
+        if(isclose(output[i].op))
+        {
+            while(stack_cnt>0 && stack[stack_cnt-1]!='(')
+            {
+                new[new_cnt].op=stack[stack_cnt-1];
+                new_cnt++;
+                stack_cnt--;
+            }
+            if(stack_cnt) stack_cnt--;
+
+        }
+
+    }
+    while(stack_cnt>0)
+    {
+        new[new_cnt].op=stack[stack_cnt-1];
+        new_cnt++;
+        stack_cnt--;
+    }
+    printf("\nExpression was brought to postfix form. Print new version?[Y/n]\n");
+    char cc[3];
+    scanf("%s",cc);
+    if(cc[0]=='Y' || cc[0]=='y')
+    {
+        for(int i=0;i<new_cnt;i++)
+        {
+            if(new[i].op=='?') printf("%d ",new[i].val);
+            else printf("%c ",new[i].op);
+
         }
     }
 }
