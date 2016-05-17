@@ -6,7 +6,86 @@ typedef struct elem
     int val;
 }elem;
 
-/*______________________Для стэка______________________*/
+ /*______________________Дерево______________________*/
+/******************************************************/
+typedef struct tr
+{
+    elem l;
+    struct tr* left;
+    struct tr* right;
+    int bracket;
+}tr
+
+typedef struct tr* tree;
+int count1;
+tree create(elem* rev, int b)
+{
+    tree res=(tree)malloc(sizeof(tree));
+    if(count1!=-1)
+    {
+        if(isopen(rev[count1].op) || isclose(rev[count1].op) || isoper(rev[count1].op) )
+        {
+            res->l.op=rev[count1].op;
+            res->bracket=b;
+            count1--;
+            res->right=build_tree(rev,2);
+            res->left=build_tree(rev,1);
+        }
+        else
+        {
+            res->l.op=rev[count1].op;
+            if(rev[count1].op=='?') res->l.val=rev[count1].val;
+            res->bracket=b;
+            cnt--;
+        }
+    }
+    return res;
+}
+int lvl=0;
+void print(tree t)
+{
+    if(tree->left) print(t->left)
+
+    if(t->l.op=='?')
+    {
+        if(t->bracket==1)
+        {
+            if(t->l.val>0) printf("(%d",t->l.val);
+            else printf("((%d)",t->l.val);
+            lvls++;
+        }
+        else if(t->bracket==2)
+            {
+                if(t->l.val>0) printf("(%d",t->l.val);
+                else printf("(%d))",t->l.val);
+                lvls--;
+            }
+    }
+    if(istemp(t-l.op))
+    {
+        if(t->bracket==1)
+        {
+            printf("(%c",t->l.op);
+            lvls++;
+        }
+        else if(t->bracket==2)
+            {
+                printf("%c)",t->l.op);
+                lvls--;
+            }
+    }
+    if(isoper(t->l.op) || isopen(t->l.op) || isclose(t->l.op))
+    {
+        printf("%c",tree->l.op);
+    }
+
+    if(tree->right) print(tree->right)
+}
+/*****************************************************/
+/*___________________________________________________*/
+
+
+ /*______________________Для стэка______________________*/
 /******************************************************/
 int priority(char a)
 {
@@ -431,4 +510,5 @@ if(open!=close) {printf("Wrong input\n"); return 0;}
 
         }
     }
+    count1=new_cnt-1;
 }
