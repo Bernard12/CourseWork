@@ -1,92 +1,12 @@
 #include <stdio.h>
-
+#include <stdlib.h>
 typedef struct elem
 {
     char op;
     int val;
 }elem;
 
- /*______________________Дерево______________________*/
-/******************************************************/
-typedef struct tr
-{
-    elem l;
-    struct tr* left;
-    struct tr* right;
-    int bracket;
-}tr
 
-typedef struct tr* tree;
-int count1;
-tree create(elem* rev, int b)
-{
-    tree res=(tree)malloc(sizeof(tree));
-    if(count1!=-1)
-    {
-        if(isopen(rev[count1].op) || isclose(rev[count1].op) || isoper(rev[count1].op) )
-        {
-            res->l.op=rev[count1].op;
-            res->bracket=b;
-            count1--;
-            res->right=build_tree(rev,2);
-            res->left=build_tree(rev,1);
-        }
-        else
-        {
-            res->l.op=rev[count1].op;
-            if(rev[count1].op=='?') res->l.val=rev[count1].val;
-            res->bracket=b;
-            cnt--;
-        }
-    }
-    return res;
-}
-int lvl=0;
-void print(tree t)
-{
-    if(tree->left) print(t->left)
-
-    if(t->l.op=='?')
-    {
-        if(t->bracket==1)
-        {
-            if(t->l.val>0) printf("(%d",t->l.val);
-            else printf("((%d)",t->l.val);
-            lvls++;
-        }
-        else if(t->bracket==2)
-            {
-                if(t->l.val>0) printf("(%d",t->l.val);
-                else printf("(%d))",t->l.val);
-                lvls--;
-            }
-    }
-    if(istemp(t-l.op))
-    {
-        if(t->bracket==1)
-        {
-            printf("(%c",t->l.op);
-            lvls++;
-        }
-        else if(t->bracket==2)
-            {
-                printf("%c)",t->l.op);
-                lvls--;
-            }
-    }
-    if(isoper(t->l.op) || isopen(t->l.op) || isclose(t->l.op))
-    {
-        printf("%c",tree->l.op);
-    }
-
-    if(tree->right) print(tree->right)
-}
-/*****************************************************/
-/*___________________________________________________*/
-
-
- /*______________________Для стэка______________________*/
-/******************************************************/
 int priority(char a)
 {
     if(a=='(') return 1;
@@ -98,55 +18,6 @@ int priority(char a)
     return 0;
 }
 
-/*
-typedef struct stack
-{
-    elem l;
-    stack* next;
-}stack;
-
-stack push(stack* s, char x, int v)
-{
-    stack* new=(stack*)malloc(sizeof(stack))
-    new->l->oper=x;
-    new->l->val=v;
-    new->next=s;
-    return new;
-}
-
-elem top(stack* s)
-{
-    return(s->l);
-}
-
-elem pop(stack* s)
-{
-    elem e;
-    e.oper=s->l->oper;
-    e.value=s->l->value;
-
-    if(s->next!=NULL)
-    {
-        stack* del=s;
-        s=s->next;
-        free(del);
-    }
-    else
-    {
-        s->l=NULL;
-    }
-    return e;
-}
-
-int empty(stack* s)
-{
-    if(s->l==NULL && s->next==NULL) return 1;
-    return 0;
-}
-*/
-
- /*****************************************************/
-/*___________________________________________________*/
 
   /*____________________Для парсинга____________________*/
  /******************************************************/
@@ -182,6 +53,87 @@ int istemp(char a)
 }
  /******************************************************/
 /*____________________________________________________*/
+
+
+/*______________________Дерево______________________*/
+/******************************************************/
+typedef struct tr
+{
+   elem l;
+   struct tr* left;
+   struct tr* right;
+   int bracket;
+}tr;
+
+typedef struct tr* tree;
+int count1;
+tree create(elem* rev, int b)
+{
+   tree res=(tree)malloc(sizeof(tr));
+   if(count1!=-1)
+   {
+       if(isopen(rev[count1].op) || isclose(rev[count1].op) || isoper(rev[count1].op) )
+       {
+           res->l.op=rev[count1].op;
+           res->bracket=b;
+           count1--;
+           res->right=create(rev,2);
+           res->left=create(rev,1);
+       }
+       else
+       {
+           res->l.op=rev[count1].op;
+           if(rev[count1].op=='?') res->l.val=rev[count1].val;
+           res->bracket=b;
+           count1--;
+       }
+   }
+   return res;
+}
+int lvls=0, task=0;
+void print(tree t)
+{
+   if(t->left) print(t->left);
+
+   if(t->l.op=='?')
+   {
+       if(t->bracket==1)
+       {
+           if(t->l.val>0) printf("(%d",t->l.val);
+           else printf("(%d",t->l.val);
+           lvls++;
+       }
+       else if(t->bracket==2)
+           {
+               if(t->l.val>0) printf("%d)",t->l.val);
+               else printf("(%d))",t->l.val);
+               lvls--;
+           }
+   }
+   if(istemp(t->l.op))
+   {task++;
+       if(t->bracket==1)
+       {
+           printf("(%c",t->l.op);
+           lvls++;
+       }
+       else if(t->bracket==2)
+           {
+               printf("%c)",t->l.op);
+               lvls--;
+           }
+   }
+   if(isoper(t->l.op) || isopen(t->l.op) || isclose(t->l.op))
+   {
+       printf("%c",t->l.op);
+   }
+
+   if(t->right) print(t->right);
+}
+/*****************************************************/
+/*___________________________________________________*/
+
+
 int main()
 {
     char input[100];
@@ -224,7 +176,7 @@ int open=0, close=0; int count=0;
     printf("%d  %d",open, close);
 if(open!=close) {printf("Wrong input\n"); return 0;}
     for (int i=0;input[i]!='\0';i++)
-    {printf("\n%d\n",i);
+    {
         if(i==0)
         {
             if(istemp(input[i]))
@@ -511,4 +463,12 @@ if(open!=close) {printf("Wrong input\n"); return 0;}
         }
     }
     count1=new_cnt-1;
+    printf("\nExpression from tree:\n");
+    tree s=create(new,0);
+    printf("\n");
+    print(s);
+    for(int i=0;i<lvls;i++)
+    printf(")");
+    printf("\nNumber of variables: %d\n",task);
+
 }
