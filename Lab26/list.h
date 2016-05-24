@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-void create(int* l, int number, int random); //Done, not tested
+int* create( int number, int random); //Done, not tested
 
 void resize(int* l, int number, int flag); //Done, not tested
 
