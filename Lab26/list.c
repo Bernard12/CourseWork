@@ -6,12 +6,11 @@ int max=0;
 
 int* create( int number, int random)
 {
-    int *l;
+
         float k1=1.05+(41/(2*number+1));
         int k=(int)(k1*number);
         printf("%d   %d\n",k,k*sizeof(int));
-        k*=4;
-        l=(int*)malloc( k );
+        int* l=(int*)malloc( k*sizeof(int) );
         printf("ok");
         l[0]=1;
         for(l[0];l[0]<=number;l[0]++)
