@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 int* create( int number, int random); //Done, not tested
 
