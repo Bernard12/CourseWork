@@ -3,8 +3,8 @@
 #include <time.h>
 
 //include "list.h"
-#include "list1.h"
-#include "sort.h"
+//include "list1.h"
+#include "lab.h"
 
 
 
