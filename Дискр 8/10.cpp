@@ -40,18 +40,27 @@ void readData() {
     scanf("%d",&n2);
     printf("Введите количество ребер:\n");
     scanf("%d",&m);
+
     //инициализируем список смежности размерности n1
     adj = new vector<int>[n1];
     FILE* f;
     f=fopen("graph1","w");
     fprintf(f, "digraph G\n{\n    node [shape=circle]");
+    for(int i=1;i<=n1;i++)
+    {
+        fprintf(f,"    %d [color=blue]\n",i);
+    }
+    for(int i=1;i<=n2;i++)
+    {
+        fprintf(f,"    %d [color=red]\n",i+n1 );
+    }
     //считываем граф, заданный списком ребер
     printf("Введите список ребер:\n");
     for (int i = 0; i < m; ++i) {
         int v, w;
         scanf("%d %d", &v, &w);
-        fprintf(f,"    %d [color=blue]\n",v );
-        fprintf(f,"    %d [color=red]\n",w+n1);
+        //fprintf(f,"    %d [color=blue]\n",v );
+        //fprintf(f,"    %d [color=red]\n",w+n1);
         fprintf(f,"    %d -> %d [dir=none]\n",v,w+n1);
         v--;
         w--;
@@ -83,9 +92,17 @@ void printData() {
     if(f)
     {
         fprintf(f,"digraph G\n{\n node [shape=circle]");
+        for(int i=1;i<=n1;i++)
+        {
+            fprintf(f,"    %d [color=blue]\n",i);
+        }
+        for(int i=1;i<=n2;i++)
+        {
+            fprintf(f,"    %d [color=red]\n",i+n1 );
+        }
         for (int i = 0; i < n2; ++i) {
             if (mt[i] != -1) {
-                fprintf(f,"    %d [color=blue]\n    %d [color=red]\n    %d -> %d [dir=none]\n", mt[i] + 1, i+1+n2, mt[i] + 1, i+1+n2);
+                fprintf(f,"    %d -> %d [dir=none]\n", mt[i]+1, i+1+n1);
             }
         }
         fprintf(f, "}\n");
