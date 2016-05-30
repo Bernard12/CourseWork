@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 typedef struct a
 {
     int column;
@@ -10,19 +11,14 @@ void re_size(pair* matr, int* max, int* num, int flag)
 {
     if(flag)
     {
-        int z=*max;
-        z+=20;
-        //printf("%d\n",z);
-        matr=(pair*)realloc(matr, z*sizeof(pair));
+        matr=(pair*)realloc(matr, (*max+20)*sizeof(pair) );
         (*max)+=20;
     }
     else
     {
-        int z=*num;
-        z+=1;
-        matr=(pair*)realloc(matr, z*sizeof(pair)+2*sizeof(pair));
+        matr=(pair*)realloc(matr, (*num)*sizeof(pair));
         //int m=*num;
-        *max=(*num)+1;
+        *max=*num;
     }
 }
 
@@ -53,16 +49,6 @@ void input(pair* matr, int* max, int* num, int a, int b,int n,int* flag)
             for(int j=1;j<=n;j++)
             {
                 scanf("%d",&scan);
-                if(b && i==j)
-                {scan*=a;
-                    scan+=b;
-
-                    matr[*num].column=j;
-                    matr[*num].val=scan;
-                    (*num)++;
-                    if( (*num)==(*max) ) re_size(matr,max,num,1);
-                    continue;
-                }
                 if(scan)
                 {
                     matr[*num].column=j;
@@ -72,7 +58,16 @@ void input(pair* matr, int* max, int* num, int a, int b,int n,int* flag)
                     continue;
                     *flag=1;
                 }
-
+                if(b && i==j)
+                {scan*=a;
+                    scan+=b;
+                    printf("%d",scan);
+                    matr[*num].column=j;
+                    matr[*num].val=scan;
+                    (*num)++;
+                    if( (*num)==(*max) ) re_size(matr,max,num,1);
+                    continue;
+                }
             }
         if(i==n)
         {
@@ -181,3 +176,34 @@ void print2(pair* matr,int num, int n)
         }
     }
 }
+
+
+int main()
+{
+    pair* matr=(pair*)malloc(20*sizeof(int));
+    int max=20;
+    int num=0;
+    printf("This program calculate polynomial aX+bE\n");
+    printf("Enter a and b:\n");
+    int a,b;
+    scanf("%d %d",&a,&b);
+    printf("Enter size of matrix: \n");
+    int n;
+    scanf("%d",&n);
+    int flag=0;
+    input(matr,&max,&num,a,b,n,&flag);
+    for(int i=0;i<num;i++)
+    {
+        if(matr[i].column==0)
+        {
+            printf("\n%d %d\n",matr[i].column,matr[i].val);
+        }
+        else
+        {
+            printf("%d %d ||",matr[i].column,matr[i].val);
+        }
+    }
+    if(b) print1(matr,num,n);
+    else print2(matr,num,n);
+}
+
