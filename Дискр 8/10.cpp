@@ -48,11 +48,11 @@ void readData() {
     fprintf(f, "digraph G\n{\n    node [shape=circle]");
     for(int i=1;i<=n1;i++)
     {
-        fprintf(f,"    %d [color=blue]\n",i);
+        fprintf(f,"   \" %d \" [color=blue]\n",i);
     }
     for(int i=1;i<=n2;i++)
     {
-        fprintf(f,"    %d [color=red]\n",i+n1 );
+        fprintf(f,"    %d [color=red]\n",i );
     }
     //считываем граф, заданный списком ребер
     printf("Введите список ребер:\n");
@@ -61,7 +61,7 @@ void readData() {
         scanf("%d %d", &v, &w);
         //fprintf(f,"    %d [color=blue]\n",v );
         //fprintf(f,"    %d [color=red]\n",w+n1);
-        fprintf(f,"    %d -> %d [dir=none]\n",v,w+n1);
+        fprintf(f,"   \" %d \"-> %d [dir=none]\n",v,w);
         v--;
         w--;
         //добавляем ребро (v, w) в граф
@@ -94,15 +94,15 @@ void printData() {
         fprintf(f,"digraph G\n{\n node [shape=circle]");
         for(int i=1;i<=n1;i++)
         {
-            fprintf(f,"    %d [color=blue]\n",i);
+            fprintf(f,"  \" %d \" [color=blue]\n",i);
         }
         for(int i=1;i<=n2;i++)
         {
-            fprintf(f,"    %d [color=red]\n",i+n1 );
+            fprintf(f,"    %d [color=red]\n",i );
         }
         for (int i = 0; i < n2; ++i) {
             if (mt[i] != -1) {
-                fprintf(f,"    %d -> %d [dir=none]\n", mt[i]+1, i+1+n1);
+                fprintf(f,"    \" %d \" -> %d [dir=none]\n", mt[i]+1, i+1);
             }
         }
         fprintf(f, "}\n");

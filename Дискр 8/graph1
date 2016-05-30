@@ -1,15 +1,10 @@
 digraph G
 {
-    node [shape=circle]    1 [color=blue]
-    2 [color=blue]
-    3 [color=blue]
-    4 [color=blue]
-    5 [color=blue]
-    6 [color=red]
-    7 [color=red]
-    8 [color=red]
-    9 [color=red]
-    1 -> 6 [dir=none]
-    2 -> 6 [dir=none]
-    1 -> 7 [dir=none]
+    node [shape=circle]   " 1 " [color=blue]
+   " 2 " [color=blue]
+    1 [color=red]
+    2 [color=red]
+   " 1 "-> 1 [dir=none]
+   " 1 "-> 2 [dir=none]
+   " 2 "-> 1 [dir=none]
 }

@@ -1,0 +1,6 @@
+digraph G
+{
+	node [shape=circle]
+	1 [color=blue]
+    " 1" [color=red]
+}
