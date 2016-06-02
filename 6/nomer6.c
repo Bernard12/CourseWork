@@ -1,43 +1,30 @@
 #include "nomer6.h"
 #include <stdio.h>
 
-/*char Check(char* path,int i)
-{
-    char c,n;
-    if(i==1)
-    {
-        printf("Enter file path:\n");
-        scanf("%s",path);
-    }
-    if(i==2)
-    {
-        printf("Use pervious filename?[Y/n]\n");
 
-        {
-            while(1)
-            {
-                scanf("%c%c",&c,&n);
-                if(c=='N' || c=='n' || c=='Y' || c=='y') break;
-                else printf("Error, enter [Y/n]\n");
-            }
-        }
-        if(c=='n' || c=='N')
-        {
-            printf("Enter path: \n");
-            scanf("%s",path);
-        }
-    }
-
-}
-*/
-
-int main()
+int main(int argc, char *argv[])
 {
     char c,act[10];
     char path [200];
     int i=1;
+
+    if(argc>=2)
+    {
+        for(int i=0;1;i++)
+        {
+            if(argv[1][i]=='\0')
+            {
+                path[i]='\0';
+                break;
+            }
+            path[i]=argv[1][i];
+        }
+    }
+    else
+    {
     printf("Enter file path:\n");
     scanf("%s",path);
+    }
 
     while(i)
     {
@@ -45,37 +32,27 @@ int main()
         printf("Choose option:\n");
         scanf("%s",act);
 
-        //if(action>8 || action<1)
-        //{
-            //while(1)
-            //{
-            //    printf("Error, option must be a number [1..8]\n");
-            //    scanf("%d",&action);
-            //    if(action>=1 || action<=9) break;
-            //}
-
-        //}
         if(act[0]=='1'&& act[1]!='0')
         {
-        //    Check(path,i);
+
             base_create(path);
         }
 
         if(act[0]=='2')
         {
-        //    Check(path,i);
+
             base_print(path);
         }
 
         if(act[0]=='3')
         {
-        //    Check(path,i);
+
             manual_add(path);
         }
 
         if(act[0]=='4')
         {
-            //Check(path,i);
+
             printf("Enter number of student, which you want to delete:\n");
             int n;
             scanf("%d",&n );
@@ -90,7 +67,7 @@ int main()
         if(act[0]=='5')
         {
             char c,z;
-            //Check(path,i);
+
             char sur[16];
             printf("Enter surname of student, which you want to delete(up to 15 symbols):\n");
             scanf("%s",sur);
@@ -102,7 +79,7 @@ int main()
 
         if(act[0]=='6')
         {
-            //Check(path, i);
+
             printf("Are you sure you want to delete base %s ?[Y/n]\n",path);
             char c[10];
             scanf("%s",c);
@@ -113,7 +90,7 @@ int main()
 
         if(act[0]=='7')
         {int n;char s;
-            //Check(path,i);
+
             printf("Enter group:\n");
             scanf("%d%c",&n,&s);
             printf("Result: ");
@@ -140,7 +117,7 @@ int main()
 
         if(act[0]=='1' && act[1]=='0')
         {
-            printf("Closing");
+            printf("Closing\n");
             return 0;
         }
         i=2;

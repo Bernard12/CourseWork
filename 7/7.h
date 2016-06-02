@@ -11,18 +11,18 @@ void re_size(pair* matr, int* max, int* num, int flag)
     if(flag)
     {
         int z=*max;
-        z+=20;
+        z*=5;
         //printf("%d\n",z);
-        matr=(pair*)realloc(matr, z*sizeof(pair));
-        (*max)+=20;
+        matr=(pair*)realloc(matr, (*num)*10*sizeof(pair));
+        (*max)*=5;
     }
     else
     {
-        int z=*num;
+    /*    int z=*num;
         z+=1;
         matr=(pair*)realloc(matr, z*sizeof(pair)+2*sizeof(pair));
         //int m=*num;
-        *max=(*num)+1;
+        *max=(*num)+1;*/
     }
 }
 
@@ -54,8 +54,8 @@ void input(pair* matr, int* max, int* num, int a, int b,int n,int* flag)
             {
                 scanf("%d",&scan);
                 if(b && i==j)
-                {scan*=a;
-                    scan+=b;
+                {//scan*=a;
+                    //scan+=b;
 
                     matr[*num].column=j;
                     matr[*num].val=scan;
@@ -66,7 +66,7 @@ void input(pair* matr, int* max, int* num, int a, int b,int n,int* flag)
                 if(scan)
                 {
                     matr[*num].column=j;
-                    matr[*num].val=scan*a;
+                    matr[*num].val=scan;
                     (*num)++;
                     if( (*num)==(*max) ) re_size(matr,max,num,1);
                     continue;

@@ -23,8 +23,28 @@ int comp(char a, char b)
     if(a<=b) return 1;
     else return 2;
 }
+int str_comp(char* a, char*b)
+{
+    int i=0;
+    while(1)
+    {
+        if(a[i]=='\0' && b[i]=='\0')
+        {
+            return 1;
+        }
+        if( (a[i]=='\0' && b[i]!='\0') || (a[i]!='\0' && b[i]=='\0') )
+        {
+            return 0;
+        }
+        if(a[i]!=b[i])
+        {
+            return 0;
+        }
+        i++;
+    }
+}
 
-int bin_search(int num, elem* inp)
+int bin_search(int num, char* str, elem* inp)
 {
     int left=0, right=19, mid=(int)((left+right)/2);
     while(1)
@@ -33,18 +53,20 @@ int bin_search(int num, elem* inp)
         int a=inp[mid].numkey;
         if(a==num)
         {
+
             while(1)
             {
-                if(a==inp[mid-1].numkey) mid--;
+                if(a==inp[mid-1].numkey && str_comp(str, inp[mid-1].strkey)) mid--;
                 else break;
             }
             while(1)
             {
-                if(a!=inp[mid].numkey) break;
+                if(a!=inp[mid].numkey || str_comp(str, inp[mid].strkey)==0) break;
                 printf("%d) %d %s %s\n\n",mid+1, a, inp[mid].strkey,inp[mid].val);
                 mid++;
             }
             return 0;
+
         }
         if(num<a)
         {
@@ -205,9 +227,12 @@ int main()
         scanf("%s",act);
         if(act[0]=='1')
         {int zz;
-            printf("Enter a number to search: \n");
+            printf("Enter number key to search: \n");
             scanf("%d",&zz);
-            bin_search(zz,a);
+            printf("Enter string key to search: \n");
+            char yy[51];
+            scanf("%s",yy);
+            bin_search(zz,yy,a);
         }
 
         if(act[0]=='2')
