@@ -5,8 +5,7 @@ digraph G
    " 3 " [color=blue]
     1 [color=red]
     2 [color=red]
-    3 [color=red]
-   " 1 "-> 1 [dir=none]
    " 1 "-> 2 [dir=none]
+   " 1 "-> 1 [dir=none]
    " 2 "-> 1 [dir=none]
 }

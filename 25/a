@@ -1,0 +1,1 @@
+cc -std=c99 -o main main.o list.o sor.o

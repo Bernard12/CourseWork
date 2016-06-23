@@ -17,8 +17,10 @@ int main()
     printf("Enter size of matrix: \n");
     int n;
     scanf("%d",&n);
+	printf("Enter matrix:\n");
     int flag=0;
     input(matr,&max,&num,a,b,n,&flag);
+	printf("Vector before calculation\n");
     for(int i=0;i<num;i++)
     {
         if(matr[i].column==0)
@@ -72,6 +74,7 @@ int str=1;
         }
     }
     printf("\n\n");
+	printf("Vector after calculation\n");
     for(int i=0;i<num;i++)
     {
         if(matr[i].column==0)
@@ -84,6 +87,7 @@ int str=1;
 			if(matr[i+1].column!=0) {printf("|| ");}
         }
     }
+	printf("Result:\n");
     if(b) print1(matr,num,n);
     else print2(matr,num,n);
 }
